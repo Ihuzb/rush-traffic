@@ -12,6 +12,8 @@ const init = ({canvasWidth, canvasHeight}) => {
     ctx = offscreen.getContext("2d");
 }
 const setArcList = (canvas, {canvasWidth, canvasHeight, arcSize, arcInterval}) => {
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
     ctx = canvas.getContext("2d");
     ctx.fillStyle = "white";
     ctx.fillRect(0, 0, canvasWidth, canvasHeight);

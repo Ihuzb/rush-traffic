@@ -1,5 +1,10 @@
 <template>
-  <canvas id="canvasScene" style="width: 100%"></canvas>
+  <div class="canvas-class">
+    <div class="svg-class" id="svgInfo">
+        <Example/>
+    </div>
+    <canvas id="canvasScene" style="width: 100%"></canvas>
+  </div>
 </template>
 
 <script setup>
@@ -11,15 +16,38 @@
  */
 import {onMounted} from "vue";
 import {canvasWidth, canvasHeight, arcSize, arcInterval} from '@/public/config/config.json'
+import skyscraper from '@/public/svg/city/skyscraper-01.svg?raw'
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {DndProvider} from "vue3-dnd";
+import Example from "@/src/view/scene/components/Example.vue";
+import Box from './components/BoxSvg.vue'
 
+// 随机生成建筑物
+const setCity = () => {
+  let length = 4;
+  let cityList = Array.apply(null, {length}).map(v => {
+    let x = Math.floor(Math.random() * 124 + 1) * 10, y = Math.floor(Math.random() * 58 + 1) * 10;
+    return skyscraper.replace(/<svg.*>/, `<g transform="translate(${x},${y}) scale(0.3125)">`).replace(/<\/svg>/g, '</g>');
+  }).join('');
+  addVga(cityList);
+}
+// 生成各种图标方法
+const addVga = (vgaText) => {
+  let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '1280');
+  svg.setAttribute('height', '640');
+  svg.innerHTML = vgaText;
+  document.getElementById('svgInfo').appendChild(svg);
+}
 const setCanvas = () => {
-  const canvasScene = document.getElementById('canvasScene');
-  canvasScene.width = canvasWidth;
-  canvasScene.height = canvasHeight;
   const offscreen = document.querySelector('#canvasScene').transferControlToOffscreen();
   const worker = new Worker('/public/unit/worker.js');
   // 往子线程传递参数
-  worker.postMessage({msg: 'init', canvas: offscreen, data: {canvasWidth, canvasHeight, arcInterval, arcSize}}, [offscreen]);
+  worker.postMessage({
+    msg: 'init',
+    canvas: offscreen,
+    data: {canvasWidth, canvasHeight, arcInterval, arcSize}
+  }, [offscreen]);
   worker.onmessage = (e) => {
     console.log(e, '我做完啦！');
     // let bitmapContext = canvasScene.getContext("bitmaprenderer");
@@ -29,9 +57,40 @@ const setCanvas = () => {
 
 onMounted(() => {
   setCanvas();
+  // setCity();
 })
 </script>
 
 <style scoped>
+.canvas-class {
+  position: relative;
+  width: 1280px;
+  height: 640px;
 
+  .svg-class {
+    position: absolute;
+    left: 0;
+    z-index: 2;
+    color: red;
+    width: 100%;
+    height: 100%;
+
+    .city-class {
+      width: 50px;
+      position: absolute;
+      left: 100px;
+      top: 200px;
+    }
+
+    #lv-1 {
+      scale: 0.5;
+    }
+  }
+
+  #canvasScene {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+  }
+}
 </style>

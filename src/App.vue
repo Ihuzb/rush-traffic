@@ -1,5 +1,5 @@
 <template>
-  <Content/>
+    <Content/>
 </template>
 <script setup>
 import Content from '@/src/view/content/index.vue'
