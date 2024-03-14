@@ -4,6 +4,7 @@ import {useDragLayer} from 'vue3-dnd'
 import {ItemTypes} from './ItemTypes'
 import {snapToGrid} from './snapToGrid'
 import {toRefs} from '@vueuse/core'
+import Box from './Box.vue'
 
 const scale = inject('scale')
 
@@ -50,12 +51,7 @@ const {itemType, isDragging, item, initialOffset, currentOffset} = toRefs(collec
 <template>
   <div class="layer">
     <div :style="getItemStyles(initialOffset, currentOffset, props.snapToGrid,item)">
-      <div
-          class="box"
-          role="Box"
-      >
-        {{ item?.title }}
-      </div>
+      <Box :src=" item?.src"/>
     </div>
   </div>
 </template>
@@ -69,9 +65,4 @@ const {itemType, isDragging, item, initialOffset, currentOffset} = toRefs(collec
   pointer-events: none;
 }
 
-.box {
-  padding: 0.5rem 1rem;
-  border: 1px dashed gray;
-  cursor: move;
-}
 </style>

@@ -2,14 +2,16 @@
 import {ItemTypes} from './ItemTypes'
 import {useDrag} from 'vue3-dnd'
 import {toRefs} from "@vueuse/core";
+import {toRaw} from "vue";
 
 const props = defineProps({
-  title: String,
+  src: String,
+  id: String,
   type: String,
 })
 const [collect, drag] = useDrag(() => ({
   type: ItemTypes.BOX,
-  item: props,
+  item: Object.assign({}, props, {id: props.id}),
   end: (item, monitor) => {
     const dropResult = monitor.getDropResult();
   },
@@ -23,19 +25,19 @@ const {isDragging} = toRefs(collect);
 </script>
 
 <template>
-  <span
-      :ref="drag"
-      class="box"
-      role="Box"
-  >
-    {{ title }}
-  </span>
+  <img :src="src" role="Box" :ref="drag" class="box">
+  <!--  <span-->
+  <!--      :ref="drag"-->
+  <!--      class="box"-->
+  <!--      role="Box"-->
+  <!--  >-->
+  <!--    {{ title }}-->
+  <!--  </span>-->
 </template>
 
 <style scoped>
 .box {
-  padding: 0.5rem 1rem;
-  //border: 1px dashed gray;
-  cursor: move;
+  width: 20px;
+//border: 1px dashed gray; cursor: move;
 }
 </style>

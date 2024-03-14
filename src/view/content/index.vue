@@ -1,13 +1,7 @@
 <template>
   <div class="flex-class">
     <div class="menu-class">
-      <div>
-        <DndProvider :backend="HTML5Backend">
-          <Box title="Glass" type="select"/>
-          <Box title="Banana" type="select"/>
-          <Box title="Paper" type="select"/>
-        </DndProvider>
-      </div>
+      <Menu/>
     </div>
     <div class="content-class">
       <div id="scene">
@@ -19,9 +13,7 @@
 <script setup>
 import Scene from '@/src/view/scene/index.vue'
 import {onMounted, provide, ref} from "vue";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {DndProvider} from "vue3-dnd";
-import Box from "@/src/view/scene/components/BoxSvg.vue";
+import Menu from "@/src/view/menu/index.vue";
 
 const scale = ref(1);
 provide('scale', scale);
@@ -87,6 +79,7 @@ onMounted(() => {
   .menu-class {
     flex: 400px;
     background: white;
+    padding: 20px;
   }
 
   .content-class {

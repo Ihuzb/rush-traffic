@@ -10,15 +10,14 @@ const props = defineProps({
 })
 
 
-const boxes = reactive({
-  a: {top: 20, left: 80, title: 'a'},
-  b: {top: 180, left: 20, title: 'b'},
-})
-const moveBox = ({title}, left, top) => {
-  if (boxes[title]) {
-    Object.assign(boxes[title], {left, top})
+const boxes = reactive({})
+const moveBox = ({id, src, type}, left, top) => {
+  if (boxes[id] && type != 'select') {
+    Object.assign(boxes[id], {left, top})
   } else {
-    boxes[title] = {left: left, top, title}
+    let length = Object.keys(boxes).length + 1;
+    id = id + length;
+    boxes[id] = {left: left, top, src}
   }
 }
 const scale = inject('scale')

@@ -1,6 +1,6 @@
 <template>
   <div class="canvas-class">
-    <div class="svg-class" id="svgInfo">
+    <div class="svg-class" >
       <DndProvider :backend="HTML5Backend">
         <Example/>
       </DndProvider>

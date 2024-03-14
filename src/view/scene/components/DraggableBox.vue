@@ -8,7 +8,7 @@ import {onMounted, watch} from 'vue'
 
 const props = defineProps({
   id: String,
-  title: String,
+  src: String,
   left: Number,
   top: Number,
 })
@@ -26,6 +26,7 @@ onMounted(() => {
 })
 
 const {isDragging} = toRefs(collect);
+
 </script>
 
 <template>
@@ -39,6 +40,6 @@ const {isDragging} = toRefs(collect);
     }"
       role="DraggableBox"
   >
-    <Box :title="title"/>
+    <Box :src="src"/>
   </div>
 </template>

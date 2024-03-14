@@ -1,7 +1,7 @@
 <script setup>
 import Container from './Container.vue'
 import CustomDragLayer from './CustomDragLayer.vue'
-import {onMounted, ref} from 'vue'
+import {ref} from 'vue'
 
 const snapToGridAfterDrop = ref(true)
 const snapToGridWhileDragging = ref(true)
