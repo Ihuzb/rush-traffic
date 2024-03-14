@@ -1,5 +1,5 @@
 <script setup>
-import {reactive} from 'vue'
+import {inject, reactive} from 'vue'
 import {useDrop} from 'vue3-dnd'
 import DraggableBox from './DraggableBox.vue'
 import {ItemTypes} from './ItemTypes'
@@ -21,17 +21,23 @@ const moveBox = ({title}, left, top) => {
     boxes[title] = {left: left, top, title}
   }
 }
+const scale = inject('scale')
 
 const [, drop] = useDrop(() => ({
   accept: ItemTypes.BOX,
   drop(item, monitor) {
+    let drop = document.getElementById('drop');
+    let offLeft = drop.getBoundingClientRect().left / scale.value;
+    let offTop = drop.getBoundingClientRect().top / scale.value;
     let delta = monitor.getDifferenceFromInitialOffset();
-    let left = Math.round((item?.left || 0) + delta.x);
-    let top = Math.round((item?.top || 0) + delta.y);
+    let dx = delta.x / scale.value, dy = delta.y / scale.value
+
+    let left = Math.round((item?.left || 0) + dx);
+    let top = Math.round((item?.top || 0) + dy);
     if (item.type == 'select') {
       let currentOffset = monitor.getSourceClientOffset()
-      left = Math.round(currentOffset.x - 400 - 20);
-      top = Math.round(currentOffset.y - 20);
+      left = Math.round(currentOffset.x / scale.value - offLeft);
+      top = Math.round(currentOffset.y / scale.value - offTop);
     }
     if (props.snapToGrid) {
       [left, top] = doSnapToGrid(left, top)

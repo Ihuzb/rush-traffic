@@ -1,52 +1,47 @@
 <template>
-  <DndProvider :backend="HTML5Backend">
-    <div class="flex-class">
-      <div class="menu-class">
-        <div>
-          <Box title="Glass" type="select" />
+  <div class="flex-class">
+    <div class="menu-class">
+      <div>
+        <DndProvider :backend="HTML5Backend">
+          <Box title="Glass" type="select"/>
           <Box title="Banana" type="select"/>
           <Box title="Paper" type="select"/>
-        </div>
-      </div>
-      <div class="content-class">
-        <div id="scene">
-          <Scene/>
-        </div>
+        </DndProvider>
       </div>
     </div>
-  </DndProvider>
+    <div class="content-class">
+      <div id="scene">
+        <Scene/>
+      </div>
+    </div>
+  </div>
 </template>
 <script setup>
 import Scene from '@/src/view/scene/index.vue'
-import {onMounted, ref} from "vue";
-import Example from "@/src/view/scene/components/Example.vue";
+import {onMounted, provide, ref} from "vue";
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "vue3-dnd";
-import {TouchBackend} from 'react-dnd-touch-backend'
 import Box from "@/src/view/scene/components/BoxSvg.vue";
 
-const options = {
-  enableMouseEvents: true
-}
-const open = ref(true);
+const scale = ref(1);
+provide('scale', scale);
 const setWheel = () => {
   let element = document.getElementById("scene");
-  let scale = 1;
-  element.style.transform = 'scale(' + scale + ')';
+  element.style.transform = 'scale(' + scale.value + ')';
   element.addEventListener('wheel', function (event) {
     event.preventDefault();
     let delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
     if (delta > 0) {
-      scale += 0.25;
+      scale.value += 0.25;
     } else {
-      scale -= 0.25;
+      scale.value -= 0.25;
     }
     if (scale > 4) {
-      scale = 4
+      scale.value = 4
     } else if (scale < 0.45) {
-      scale = 0.45
+      scale.value = 0.45
     }
-    element.style.transform = 'scale(' + scale + ')';
+    element.style.transform = 'scale(' + scale.value + ')';
   });
 }
 const setMouse = () => {

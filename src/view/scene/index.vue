@@ -1,7 +1,9 @@
 <template>
   <div class="canvas-class">
     <div class="svg-class" id="svgInfo">
+      <DndProvider :backend="HTML5Backend">
         <Example/>
+      </DndProvider>
     </div>
     <canvas id="canvasScene" style="width: 100%"></canvas>
   </div>
@@ -20,7 +22,6 @@ import skyscraper from '@/public/svg/city/skyscraper-01.svg?raw'
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "vue3-dnd";
 import Example from "@/src/view/scene/components/Example.vue";
-import Box from './components/BoxSvg.vue'
 
 // 随机生成建筑物
 const setCity = () => {

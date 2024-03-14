@@ -1,28 +1,33 @@
 <script setup>
+import {inject} from 'vue'
 import {useDragLayer} from 'vue3-dnd'
 import {ItemTypes} from './ItemTypes'
 import {snapToGrid} from './snapToGrid'
 import {toRefs} from '@vueuse/core'
 
-function getItemStyles(
-    initialOffset,
-    currentOffset,
-    isSnapToGrid, item
-) {
+const scale = inject('scale')
+
+function getItemStyles(initialOffset, currentOffset, isSnapToGrid, item) {
   if (item?.type == 'select' || (!initialOffset || !currentOffset)) {
     return {
       display: 'none',
     }
   }
+  let drop = document.getElementById('drop');
+  let left = drop.getBoundingClientRect().left / scale.value;
+  let top = drop.getBoundingClientRect().top / scale.value;
   let {x, y} = currentOffset;
+  x = x / scale.value;
+  y = y / scale.value;
+  let ix = initialOffset.x / scale.value, iy = initialOffset.y / scale.value
   if (isSnapToGrid) {
-    x -= initialOffset.x;
-    y -= initialOffset.y;
+    x -= ix;
+    y -= iy;
     [x, y] = snapToGrid(x, y);
-    x += initialOffset.x;
-    y += initialOffset.y;
+    x += ix;
+    y += iy;
   }
-  const transform = `translate(${x - 20 - 400}px, ${y - 20}px)`
+  const transform = `translate(${Math.round(x - left)}px, ${Math.round(y - top)}px)`
   return {
     transform,
   }
@@ -39,8 +44,7 @@ const collect = useDragLayer(monitor => ({
   currentOffset: monitor.getSourceClientOffset(),
   isDragging: monitor.isDragging(),
 }))
-const {itemType, isDragging, item, initialOffset, currentOffset} =
-    toRefs(collect)
+const {itemType, isDragging, item, initialOffset, currentOffset} = toRefs(collect);
 </script>
 
 <template>
