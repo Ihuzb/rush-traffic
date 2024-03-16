@@ -35,7 +35,7 @@ function getItemStyles(initialOffset, currentOffset, isSnapToGrid, item) {
 }
 
 const props = defineProps({
-  snapToGrid: Boolean
+  snapToGrid: Boolean,
 })
 
 const collect = useDragLayer(monitor => ({
@@ -51,7 +51,7 @@ const {itemType, isDragging, item, initialOffset, currentOffset} = toRefs(collec
 <template>
   <div class="layer">
     <div :style="getItemStyles(initialOffset, currentOffset, props.snapToGrid,item)">
-      <Box :src=" item?.src"/>
+      <Box :src=" item?.src" :size="item?.size"/>
     </div>
   </div>
 </template>

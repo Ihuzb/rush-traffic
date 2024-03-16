@@ -26,7 +26,7 @@ const {isDragging} = toRefs(collect);
 </script>
 
 <template>
-  <img :style="{width:props.size=='big'?'60px':'40px'}" :src="src" role="Box" :ref="drag" class="box">
+  <img :style="{width:props.size=='big'?'80px':'40px'}" :src="src" role="Box" :ref="drag" class="box">
   <!--  <span-->
   <!--      :ref="drag"-->
   <!--      class="box"-->
