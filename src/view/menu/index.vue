@@ -1,13 +1,28 @@
 <template>
   <DndProvider :backend="HTML5Backend">
     <a-collapse v-model:activeKey="activeKey">
-      <a-collapse-panel key="1" header="This is panel header 1">
-        <Box src="public/svg/city/skyscraper-01.svg" id="city" type="select"/>
-<!--        <Box title="Banana" type="select"/>-->
-<!--        <Box title="Paper" type="select"/>-->
+      <a-collapse-panel key="1" header="建筑">
+        <a-row>
+          <a-col :span="8">
+            <Box src="public/svg/city/skyscraper-01.svg" id="city" type="select"/>
+          </a-col>
+          <a-col :span="8">
+            <Box src="public/svg/city/skyscraper-04.svg" id="city" type="select"/>
+          </a-col>
+          <a-col :span="8">
+            <Box src="public/svg/city/cafe.svg" id="city" type="select"/>
+          </a-col>
+        </a-row>
       </a-collapse-panel>
-      <a-collapse-panel key="2" header="This is panel header 2">
-        <p>{{ 232 }}</p>
+      <a-collapse-panel key="2" header="公路">
+        <a-row>
+          <a-col :span="8">
+            <Box src="public/svg/road/road-20.svg" id="city" type="select"/>
+          </a-col>
+          <a-col :span="8">
+            <Box src="public/svg/road/road-42.svg" id="city" type="select" size="big"/>
+          </a-col>
+        </a-row>
       </a-collapse-panel>
       <a-collapse-panel key="3" header="This is panel header 3" collapsible="disabled">
         <p>{{ 232323 }}</p>

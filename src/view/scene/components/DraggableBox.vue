@@ -11,6 +11,8 @@ const props = defineProps({
   src: String,
   left: Number,
   top: Number,
+  size: String,
+
 })
 
 const [collect, drag, preview] = useDrag(() => ({
@@ -40,6 +42,6 @@ const {isDragging} = toRefs(collect);
     }"
       role="DraggableBox"
   >
-    <Box :src="src"/>
+    <Box :src="src" :size="size"/>
   </div>
 </template>

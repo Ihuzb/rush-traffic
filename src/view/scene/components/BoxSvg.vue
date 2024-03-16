@@ -8,6 +8,7 @@ const props = defineProps({
   src: String,
   id: String,
   type: String,
+  size: String,
 })
 const [collect, drag] = useDrag(() => ({
   type: ItemTypes.BOX,
@@ -25,7 +26,7 @@ const {isDragging} = toRefs(collect);
 </script>
 
 <template>
-  <img :src="src" role="Box" :ref="drag" class="box">
+  <img :style="{width:props.size=='big'?'60px':'40px'}" :src="src" role="Box" :ref="drag" class="box">
   <!--  <span-->
   <!--      :ref="drag"-->
   <!--      class="box"-->
@@ -37,7 +38,6 @@ const {isDragging} = toRefs(collect);
 
 <style scoped>
 .box {
-  width: 20px;
-//border: 1px dashed gray; cursor: move;
+  cursor: move;
 }
 </style>
