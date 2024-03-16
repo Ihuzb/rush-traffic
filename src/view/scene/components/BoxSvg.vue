@@ -26,18 +26,12 @@ const {isDragging} = toRefs(collect);
 </script>
 
 <template>
-  <img :style="{width:props.size=='big'?'80px':'40px'}" :src="src" role="Box" :ref="drag" class="box">
-  <!--  <span-->
-  <!--      :ref="drag"-->
-  <!--      class="box"-->
-  <!--      role="Box"-->
-  <!--  >-->
-  <!--    {{ title }}-->
-  <!--  </span>-->
+  <img :src="src" role="Box" :ref="drag" class="box">
 </template>
 
 <style scoped>
 .box {
+  width: 40px;
   cursor: move;
 }
 </style>
