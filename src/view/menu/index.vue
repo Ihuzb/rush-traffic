@@ -19,7 +19,7 @@ import {DndProvider} from "vue3-dnd";
 import Box from "@/view/scene/components/BoxSvg.vue";
 
 const isPro = process.env.NODE_ENV === 'production';
-const urlBae = isPro ? '/rush-traffic/' : ''
+const urlBae = isPro ? '/rush-traffic' : ''
 const activeKey = ref('1');
 const selectList = [
   {

@@ -41,7 +41,7 @@ import Example from "@/view/scene/components/Example.vue";
 // }
 const setCanvas = () => {
   const offscreen = document.querySelector('#canvasScene').transferControlToOffscreen();
-  const worker = new Worker('/public/static/unit/worker.js');
+  const worker = new Worker('/static/unit/worker.js');
   // 往子线程传递参数
   worker.postMessage({
     msg: 'init',
