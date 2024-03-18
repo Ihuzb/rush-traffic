@@ -1,6 +1,6 @@
 <template>
   <div class="canvas-class">
-    <div class="svg-class" >
+    <div class="svg-class">
       <DndProvider :backend="HTML5Backend">
         <Example/>
       </DndProvider>
@@ -39,9 +39,11 @@ import Example from "@/view/scene/components/Example.vue";
 //   svg.innerHTML = vgaText;
 //   document.getElementById('svgInfo').appendChild(svg);
 // }
+const isPro = process.env.NODE_ENV === 'production';
+const urlBae = isPro ? '/rush-traffic' : ''
 const setCanvas = () => {
   const offscreen = document.querySelector('#canvasScene').transferControlToOffscreen();
-  const worker = new Worker('/static/unit/worker.js');
+  const worker = new Worker(urlBae + '/static/unit/worker.js');
   // 往子线程传递参数
   worker.postMessage({
     msg: 'init',
