@@ -2,7 +2,7 @@
     <Content/>
 </template>
 <script setup>
-import Content from '@/src/view/content/index.vue'
+import Content from '@/view/content/index.vue'
 </script>
 <style scoped>
 

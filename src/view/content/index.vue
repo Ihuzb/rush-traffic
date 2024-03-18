@@ -11,9 +11,9 @@
   </div>
 </template>
 <script setup>
-import Scene from '@/src/view/scene/index.vue'
+import Scene from '@/view/scene/index.vue'
 import {onMounted, provide, ref} from "vue";
-import Menu from "@/src/view/menu/index.vue";
+import Menu from "@/view/menu/index.vue";
 
 const scale = ref(1);
 provide('scale', scale);

@@ -17,32 +17,31 @@
  *
  */
 import {onMounted} from "vue";
-import {canvasWidth, canvasHeight, arcSize, arcInterval} from '@/public/config/config.json'
-import skyscraper from '@/public/svg/city/skyscraper-01.svg?raw'
+import {canvasWidth, canvasHeight, arcSize, arcInterval} from '/public/static/config/config.json'
 import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "vue3-dnd";
-import Example from "@/src/view/scene/components/Example.vue";
+import Example from "@/view/scene/components/Example.vue";
 
 // 随机生成建筑物
-const setCity = () => {
-  let length = 4;
-  let cityList = Array.apply(null, {length}).map(v => {
-    let x = Math.floor(Math.random() * 124 + 1) * 10, y = Math.floor(Math.random() * 58 + 1) * 10;
-    return skyscraper.replace(/<svg.*>/, `<g transform="translate(${x},${y}) scale(0.3125)">`).replace(/<\/svg>/g, '</g>');
-  }).join('');
-  addVga(cityList);
-}
+// const setCity = () => {
+//   let length = 4;
+//   let cityList = Array.apply(null, {length}).map(v => {
+//     let x = Math.floor(Math.random() * 124 + 1) * 10, y = Math.floor(Math.random() * 58 + 1) * 10;
+//     return skyscraper.replace(/<svg.*>/, `<g transform="translate(${x},${y}) scale(0.3125)">`).replace(/<\/svg>/g, '</g>');
+//   }).join('');
+//   addVga(cityList);
+// }
 // 生成各种图标方法
-const addVga = (vgaText) => {
-  let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', '1280');
-  svg.setAttribute('height', '640');
-  svg.innerHTML = vgaText;
-  document.getElementById('svgInfo').appendChild(svg);
-}
+// const addVga = (vgaText) => {
+//   let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+//   svg.setAttribute('width', '1280');
+//   svg.setAttribute('height', '640');
+//   svg.innerHTML = vgaText;
+//   document.getElementById('svgInfo').appendChild(svg);
+// }
 const setCanvas = () => {
   const offscreen = document.querySelector('#canvasScene').transferControlToOffscreen();
-  const worker = new Worker('/public/unit/worker.js');
+  const worker = new Worker('/public/static/unit/worker.js');
   // 往子线程传递参数
   worker.postMessage({
     msg: 'init',
