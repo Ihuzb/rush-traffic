@@ -8,7 +8,7 @@ let isPro = process.env.NODE_ENV === 'production';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    base: '/rush-traffic/',
+    base: isPro ? '/rush-traffic/' : '/',
     build: {
         outDir: 'docs',
     },

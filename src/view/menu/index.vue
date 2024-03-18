@@ -4,7 +4,7 @@
       <a-collapse-panel :key="index+1" :header="item.name" v-for="(item,index) in selectList">
         <a-row>
           <a-col :span="8" v-for="value in item.list">
-            <Box :src="'/static/svg/'+item.id+'/'+value.url" :size="value.size" :id="item.id" type="select"/>
+            <Box :src="urlBae+'/static/svg/'+item.id+'/'+value.url" :size="value.size" :id="item.id" type="select"/>
           </a-col>
         </a-row>
       </a-collapse-panel>
@@ -18,6 +18,8 @@ import {HTML5Backend} from "react-dnd-html5-backend";
 import {DndProvider} from "vue3-dnd";
 import Box from "@/view/scene/components/BoxSvg.vue";
 
+const isPro = process.env.NODE_ENV === 'production';
+const urlBae = isPro ? '/rush-traffic/' : ''
 const activeKey = ref('1');
 const selectList = [
   {
