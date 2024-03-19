@@ -35,6 +35,7 @@ const {isDragging} = toRefs(collect);
 <template>
   <div
       :ref="drag"
+      :id="id"
       :style="{
       position: 'absolute',
       transform: `translate3d(${left}px, ${top}px, 0)`,

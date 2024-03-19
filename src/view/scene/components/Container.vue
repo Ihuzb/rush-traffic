@@ -52,14 +52,15 @@ const setClick = (key) => {
 </script>
 
 <template>
-  <div :ref="drop" class="container">
+  <div :ref="drop" class="container" @click.prevent="setClick('')">
     <DraggableBox
         v-for="(value, key) in boxes"
         :id="key"
         :key="key"
         :clickId="clickId"
         v-bind="value"
-        @click="setClick(key)"
+        @mousedown="setClick(key)"
+        @click.stop="setClick(key)"
     />
   </div>
 </template>
