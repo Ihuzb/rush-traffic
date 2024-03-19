@@ -1,5 +1,5 @@
 <script setup>
-import {inject, reactive} from 'vue'
+import {inject, reactive, ref} from 'vue'
 import {useDrop} from 'vue3-dnd'
 import DraggableBox from './DraggableBox.vue'
 import {ItemTypes} from './ItemTypes'
@@ -11,6 +11,7 @@ const props = defineProps({
 
 
 const boxes = reactive({})
+const clickId = ref('')
 const moveBox = ({id, src, type, size}, left, top) => {
   if (boxes[id] && type != 'select') {
     Object.assign(boxes[id], {left, top})
@@ -44,7 +45,10 @@ const [, drop] = useDrop(() => ({
     moveBox(item, left, top)
     return undefined
   }
-}))
+}));
+const setClick = (key) => {
+  clickId.value = key
+}
 </script>
 
 <template>
@@ -53,7 +57,9 @@ const [, drop] = useDrop(() => ({
         v-for="(value, key) in boxes"
         :id="key"
         :key="key"
+        :clickId="clickId"
         v-bind="value"
+        @click="setClick(key)"
     />
   </div>
 </template>

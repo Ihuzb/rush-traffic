@@ -11,6 +11,7 @@ const props = defineProps({
   src: String,
   left: Number,
   top: Number,
+  clickId: String,
   size: String,
 
 })
@@ -42,6 +43,9 @@ const {isDragging} = toRefs(collect);
     }"
       role="DraggableBox"
   >
-    <Box :src="src" :size="size"/>
+    <Box :src="src" :clickId="clickId" :id="id" :size="size"/>
   </div>
 </template>
+<style scoped>
+
+</style>
