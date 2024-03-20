@@ -86,7 +86,6 @@ onMounted(() => {
   }
 
   .content-class {
-    border: 1px solid gray;
     height: 100vh;
     width: calc(100vw - 400px);
     overflow: hidden;
