@@ -1,14 +1,13 @@
 <script setup>
 import {inject} from 'vue'
 import {useDragLayer} from 'vue3-dnd'
-import {ItemTypes} from './ItemTypes'
 import {snapToGrid} from './snapToGrid'
 import {toRefs} from '@vueuse/core'
 import Box from './Box.vue'
 
 const scale = inject('scale')
 
-function getItemStyles(initialOffset, currentOffset, isSnapToGrid, item) {
+function getItemStyles(initialOffset, currentOffset, item) {
   if (item?.type == 'select' || (!initialOffset || !currentOffset)) {
     return {
       display: 'none',
@@ -21,22 +20,16 @@ function getItemStyles(initialOffset, currentOffset, isSnapToGrid, item) {
   x = x / scale.value;
   y = y / scale.value;
   let ix = initialOffset.x / scale.value, iy = initialOffset.y / scale.value
-  if (isSnapToGrid) {
-    x -= ix;
-    y -= iy;
-    [x, y] = snapToGrid(x, y);
-    x += ix;
-    y += iy;
-  }
+  x -= ix;
+  y -= iy;
+  [x, y] = snapToGrid(x, y);
+  x += ix;
+  y += iy;
   const transform = `translate(${Math.round(x - left)}px, ${Math.round(y - top)}px)`
   return {
     transform,
   }
 }
-
-const props = defineProps({
-  snapToGrid: Boolean,
-})
 
 const collect = useDragLayer(monitor => ({
   item: monitor.getItem(),
@@ -50,7 +43,7 @@ const {itemType, isDragging, item, initialOffset, currentOffset} = toRefs(collec
 
 <template>
   <div class="layer">
-    <div :style="getItemStyles(initialOffset, currentOffset, props.snapToGrid,item)">
+    <div :style="getItemStyles(initialOffset, currentOffset,item)">
       <Box :src=" item?.src" :size="item?.size"/>
     </div>
   </div>

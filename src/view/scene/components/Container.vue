@@ -5,11 +5,6 @@ import DraggableBox from './DraggableBox.vue'
 import {ItemTypes} from './ItemTypes'
 import {snapToGrid as doSnapToGrid} from './snapToGrid'
 
-const props = defineProps({
-  snapToGrid: Boolean
-})
-
-
 const boxes = reactive({})
 const clickId = ref('')
 const moveBox = ({id, src, type, size}, left, top) => {
@@ -39,9 +34,7 @@ const [, drop] = useDrop(() => ({
       left = Math.round(currentOffset.x / scale.value - offLeft);
       top = Math.round(currentOffset.y / scale.value - offTop);
     }
-    if (props.snapToGrid) {
-      [left, top] = doSnapToGrid(left, top)
-    }
+    [left, top] = doSnapToGrid(left, top)
     moveBox(item, left, top)
     return undefined
   }
